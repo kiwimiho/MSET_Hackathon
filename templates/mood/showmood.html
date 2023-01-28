@@ -1,0 +1,16 @@
+{% extends "mood/base.html" %}
+{% block body_block %}
+
+<div class="jumbotron">
+    {% if moods %}
+    <ol>
+        {% for mood in moods %}
+        <li>{{mood.mood}}</li>
+        {% endfor %}
+    </ol>
+    {% endif %}
+    
+
+</div>
+
+{% endblock %}

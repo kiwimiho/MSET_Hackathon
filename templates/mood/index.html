@@ -6,7 +6,7 @@
         &#128512; &#128148; &#128578; &#128528; &#128533; &#128532; &#128564; &#128561;
     </p>
     
-    <form method='POST' action="{% url 'mood:index' %}">
+    <form method='POST' action="{% url 'mood:user_mood' %}">
         {% csrf_token %}
         {{form}}
         <input type="submit" value="Done">
