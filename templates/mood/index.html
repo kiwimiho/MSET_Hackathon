@@ -8,7 +8,23 @@
     
     <form method='POST' action="{% url 'mood:user_mood' %}">
         {% csrf_token %}
-        {{form}}
+        <!-- {{form}} -->
+
+        <div class="fieldWrapper">
+            <label for="{{ form.date.id_for_label }}">Date: </label>
+            {{ form.date }}
+        </div>
+        <hr>
+        <div class="fieldWrapper">
+            <label for="{{ form.mood.id_for_label }}">Mood: </label>
+            {{ form.mood }}
+        </div>
+        <hr>
+        <div class="fieldWrapper">
+            <label for="{{ form.activity.id_for_label }}">Activity: </label>
+            {{ form.activity }}
+        </div>
+        <hr>
         <input type="submit" value="Done">
     </form>
 
