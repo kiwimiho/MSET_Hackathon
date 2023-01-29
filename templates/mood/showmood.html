@@ -2,6 +2,40 @@
 
 {%block scripts%}
 <script>
+
+moodLabel = {
+    '5':"ecstatic",
+    '4':"excited",
+    '3':"happy",
+    '2':"confident",
+    '1':"inspired",
+    '0':"calm",
+    '-1':"tired",
+    '-2':"sad",
+    '-3':"stressed",
+    '-4':"scared",
+    '-5':"depressed",
+    '-6':"angry"
+};
+
+activityLabel = {
+    '5':'exam',
+    '4':'performance',
+    '3':'exercise',
+    '2':'eating',
+    '1':'hanging out with friends',
+    '0':'a meeting',
+    '-1':'after school practice',
+    '-2':'homework',
+    '-3':'classes',
+    '-4':'going outside',
+    '-5':'vacation',
+    '-6':'extracurriculars',
+    '-7':'working',
+    '-8':'entertainment',
+    '-9':'napping',
+};
+
 {% load mood.mood_filter %}
 {% load mood.moodcolor_filter %}
 {% load mood.activity_filter %}
@@ -19,19 +53,26 @@ $(document).ready(function(){
                 ]
             },
             options:{
-                legend: {display:false},
-                // scales: {
-                //     y: {
-                //         ticks: {
-                //             callback: function(value, index, ticks) {
-                //             return '$' + value;
-                //             }
-                //         }
-                //     }
-                // }
+                plugins: {
+                    legend: {display:false},
+                },
+                scales: {
+                    // x: {
+                    //     type:'timeseries'
+                    // },
+                    y: {
+                        // type: 'category',
+                        // labels: ['5', '4', '3', '2', '1', '0','-1','-2','-3','-4','-5','-6']
+                        ticks: {
+                            callback: function(value, index) {
+                                return moodLabel[value];
+                            },
+                            stepSize:1
+                        }
+                    }
+                },
             }
         });
-
         var ctx2 = document.getElementById('myScatterChart').getContext('2d');
         var myChart2 = new Chart(ctx2, {
             type: 'scatter', //Declare bar chart
@@ -40,24 +81,60 @@ $(document).ready(function(){
                 datasets: [{
                     label:"test",
                     data: [
-                        {%for data in moods%} {x:'{{data.mood|mood_filter}}',y:'{{data.activity|activity_filter}}'},{%endfor%}
+                        {%for data in moods%} {y:'{{data.mood|mood_filter}}',x:'{{data.activity|activity_filter}}'},{%endfor%}
                     ],
                     backgroundColor: 'lightblue',
+                    // pointRadius:'5',
+                    // pointHoverRadius:'7'
                 }
                 ]
             },
             options:{
-                legend: {display:false},
+                plugins: {
+                    legend: {display:false},
+                },
+                scaleShowValues: true,
+                scales: {
+                    x: {
+                        ticks: {
+                            callback: function(value, index) {
+                                return activityLabel[value];
+                            },
+                            stepSize:1
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            callback: function(value, index) {
+                                return moodLabel[value];
+                            },
+                            stepSize:1
+                        }
+                    },
+                },
+                elements:{
+                    point:{
+                        radius:10,
+                        hoverRadius:15
+                    }
+                }
             }
         });
 });
+
 </script>
 {%endblock scripts%}
 
 {%block content%}
 <!-- displaying the chart -->
 <!-- you can also play around with the width and height to increase or decrease the chart size -->
-<canvas id="myBarChart" width="400" height="100"></canvas>  
-<canvas id="myScatterChart" width="200" height="200"></canvas>  
-
+<!-- <div class="chart-container" style="position: left; height:80vh; width:100vw"> -->
+<div>
+    <p></p>
+    <canvas id="myBarChart" width="200" height="50"></canvas>  
+</div>
+<!-- </div> -->
+<div class="chart-container" style="position: center; height:50vh; width:100vw">
+    <canvas id="myScatterChart" width="200" height="100"></canvas>  
+</div>
 {%endblock content%}
