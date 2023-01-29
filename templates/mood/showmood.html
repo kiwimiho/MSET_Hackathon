@@ -42,7 +42,7 @@ activityLabel = {
 $(document).ready(function(){
         var ctx = document.getElementById('myBarChart').getContext('2d');
         var myChart = new Chart(ctx, {
-            type: 'bar', //Declare bar chart
+            type: 'line', //Declare bar chart
             data: {
                 labels: [{%for data in moods%}'{{data.date}}',{%endfor%}],
                 datasets: [{
@@ -150,13 +150,13 @@ $(document).ready(function(){
 <!-- you can also play around with the width and height to increase or decrease the chart size -->
 <!-- <div class="chart-container" style="position: left; height:80vh; width:100vw"> -->
 <div>
-    <p style="font-size:50px; color:rgb(0, 153, 255)">How did you feel in the last 5 days?</p>
-    <canvas id="myBarChart" width="200" height="80"></canvas>  
+    <p style="font-size:42px; color:rgb(0, 153, 255)">How have you been feeling recently?</p>
+    <canvas id="myBarChart" width="150" height="70"></canvas>  
 </div>
 <!-- </div> -->
 <hr>
-<div class="chart-container" style="position: center; height:50vh; width:100vw">
-    <p style="font-size:50px; color:rgb(0, 153, 255)">What activities made you happy or sad?</p>
-    <canvas id="myScatterChart" width="200" height="100"></canvas>  
+<div>
+    <p style="font-size:42px; color:rgb(0, 153, 255)">How did certain activities affect your mood?</p>
+    <canvas id="myScatterChart" width="150" height="70"></canvas>  
 </div>
 {%endblock content%}
