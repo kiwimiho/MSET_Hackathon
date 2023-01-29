@@ -1,9 +1,12 @@
 {% extends "mood/base.html" %}
 {% block body_block %}
 <div class="jumbotron">
-    <h1>Welcome to MindJournal!</h1>
+    <h1 style="font-size:56px; color:rgb(4, 112, 236)">
+        Welcome to MindJournal!
+    </h1>
+
     <p style="font-size:48px">
-        &#128512; &#128148; &#128578; &#128528; &#128533; &#128532; &#128564; &#128561;
+        &#128515; &#128522; &#128578; &#128534; &#128533; &#128532; &#128545; &#128561;
     </p>
     
     <form method='POST' action="{% url 'mood:user_mood' %}">
@@ -16,12 +19,12 @@
         </div>
         <hr>
         <div class="fieldWrapper">
-            <label style="font-size: 50px; color:rgb(0, 153, 255)" for="{{ form.mood.id_for_label }}">How do you feel now?</label>
+            <label style="font-size: 42px; color:rgb(0, 153, 255)" for="{{ form.mood.id_for_label }}">What is your mood right now?</label>
             {{ form.mood }}
         </div>
         <hr>
         <div class="fieldWrapper">
-            <label style="font-size: 50px; color:rgb(0, 153, 255)" for="{{ form.activity.id_for_label }}">What did you do just now? </label>
+            <label style="font-size: 42px; color:rgb(0, 153, 255)" for="{{ form.activity.id_for_label }}">What activity did you do? </label>
             {{ form.activity }}
         </div>
         <hr>
