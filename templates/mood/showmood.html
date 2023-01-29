@@ -42,7 +42,7 @@ activityLabel = {
 $(document).ready(function(){
         var ctx = document.getElementById('myBarChart').getContext('2d');
         var myChart = new Chart(ctx, {
-            type: 'bar', //Declare bar chart
+            type: 'line', //Declare bar chart
             data: {
                 labels: [{%for data in moods%}'{{data.date}}',{%endfor%}],
                 datasets: [{
