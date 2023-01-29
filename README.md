@@ -1,3 +1,3 @@
 # MSET_Hackathon
 
-## A MindJounal that keeps tracking your feelings
+A MindJounal that keeps tracking your feelings
