@@ -42,11 +42,11 @@ activityLabel = {
 $(document).ready(function(){
         var ctx = document.getElementById('myBarChart').getContext('2d');
         var myChart = new Chart(ctx, {
-            type: 'bar', //Declare bar chart
+            type: 'line', //Declare bar chart
             data: {
                 labels: [{%for data in moods%}'{{data.date}}',{%endfor%}],
                 datasets: [{
-                    label:"Mood",
+                    // label:"Mood",
                     data: [{%for data in moods%}'{{data.mood|mood_filter}}',{%endfor%}],
                     backgroundColor: [{%for data in moods%}'{{data.mood|moodcolor_filter}}',{%endfor%}],
                 }
@@ -55,6 +55,13 @@ $(document).ready(function(){
             options:{
                 plugins: {
                     legend: {display:false},
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'feeling ' + moodLabel[context.parsed.y];
+                            }
+                        }
+                    }
                 },
                 scales: {
                     // x: {
@@ -71,6 +78,12 @@ $(document).ready(function(){
                         }
                     }
                 },
+                elements:{
+                    point:{
+                        radius:10,
+                        hoverRadius:15
+                    }
+                },
             }
         });
         var ctx2 = document.getElementById('myScatterChart').getContext('2d');
@@ -79,7 +92,7 @@ $(document).ready(function(){
             data: {
                 labels: [{%for data in moods%}'{{data.date}}',{%endfor%}],
                 datasets: [{
-                    label:"test",
+                    // label:"test",
                     data: [
                         {%for data in moods%} {y:'{{data.mood|mood_filter}}',x:'{{data.activity|activity_filter}}'},{%endfor%}
                     ],
@@ -92,6 +105,13 @@ $(document).ready(function(){
             options:{
                 plugins: {
                     legend: {display:false},
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'feeling ' + moodLabel[context.parsed.y] + " after "+ activityLabel[context.parsed.x];
+                            }
+                        }
+                    }
                 },
                 scaleShowValues: true,
                 scales: {

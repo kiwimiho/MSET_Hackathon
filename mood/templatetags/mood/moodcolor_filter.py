@@ -8,7 +8,7 @@ moodColorDict = {
     'happy':'lightblue',
     'confident':'lightblue',
     'inspired':'lightblue',
-    'calm':'lightgray',
+    'calm':'lightblue',
     'tired':'lightpink',
     'sad':'lightpink',
     'stressed':'lightpink',
