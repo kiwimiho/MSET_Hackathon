@@ -1,16 +1,63 @@
-{% extends "mood/base.html" %}
-{% block body_block %}
+{% extends 'mood/base.html'%}
 
-<div class="jumbotron">
-    {% if moods %}
-    <ol>
-        {% for mood in moods %}
-        <li>{{mood.mood}}</li>
-        {% endfor %}
-    </ol>
-    {% endif %}
-    
+{%block scripts%}
+<script>
+{% load mood.mood_filter %}
+{% load mood.moodcolor_filter %}
+{% load mood.activity_filter %}
+$(document).ready(function(){
+        var ctx = document.getElementById('myBarChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar', //Declare bar chart
+            data: {
+                labels: [{%for data in moods%}'{{data.date}}',{%endfor%}],
+                datasets: [{
+                    label:"Mood",
+                    data: [{%for data in moods%}'{{data.mood|mood_filter}}',{%endfor%}],
+                    backgroundColor: [{%for data in moods%}'{{data.mood|moodcolor_filter}}',{%endfor%}],
+                }
+                ]
+            },
+            options:{
+                legend: {display:false},
+                // scales: {
+                //     y: {
+                //         ticks: {
+                //             callback: function(value, index, ticks) {
+                //             return '$' + value;
+                //             }
+                //         }
+                //     }
+                // }
+            }
+        });
 
-</div>
+        var ctx2 = document.getElementById('myScatterChart').getContext('2d');
+        var myChart2 = new Chart(ctx2, {
+            type: 'scatter', //Declare bar chart
+            data: {
+                labels: [{%for data in moods%}'{{data.date}}',{%endfor%}],
+                datasets: [{
+                    label:"test",
+                    data: [
+                        {%for data in moods%} {x:'{{data.mood|mood_filter}}',y:'{{data.activity|activity_filter}}'},{%endfor%}
+                    ],
+                    backgroundColor: 'lightblue',
+                }
+                ]
+            },
+            options:{
+                legend: {display:false},
+            }
+        });
+});
+</script>
+{%endblock scripts%}
 
-{% endblock %}
+{%block content%}
+<!-- displaying the chart -->
+<!-- you can also play around with the width and height to increase or decrease the chart size -->
+<canvas id="myBarChart" width="400" height="100"></canvas>  
+<canvas id="myScatterChart" width="200" height="200"></canvas>  
+
+{%endblock content%}
